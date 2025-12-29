@@ -1,11 +1,23 @@
-import React, { useState } from "react";
-import { loginUser, fetchCurrentUser } from "../api";
+import React, { useEffect, useState } from "react";
+import { loginUser, fetchCurrentUser , getStoredTokens } from "../api";
+import { useNavigate } from "react-router";
 
 const Login = () => {
+  const navigate = useNavigate()
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+
+
+
+   useEffect(() => {
+    const { access } = getStoredTokens();
+    if (access) {
+      navigate("/Dashboard", { replace: true });
+    }
+  }, [navigate]);
+
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -20,7 +32,7 @@ const Login = () => {
       setLoading(true);
       await loginUser({ email, password });
       await fetchCurrentUser();
-      window.location.href = "/Dashboard";
+      navigate("/Dashboard", { replace: true });
     } catch (err) {
       setError(err.message || "Login failed.");
     } finally {

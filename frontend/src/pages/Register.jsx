@@ -1,5 +1,6 @@
-import React, { useState } from "react";
-
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router";
+import {getStoredTokens} from "../api"
 
 const API_BASE = "http://localhost:8000/api";
 
@@ -19,21 +20,28 @@ async function registerUser(payload) {
     error.data = data;
     throw error;
   }
-  window.location.href = "/";
+  navigate("/");
   return data;
 }
 
 
 const Register = () => {
+  const navigate = useNavigate()
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [fieldErrors, setFieldErrors] = useState({});
   const [success, setSuccess] = useState(false);
 
+
+     useEffect(() => {
+      const { access } = getStoredTokens();
+      if (access) {
+        navigate("/Dashboard", { replace: true });
+      }
+    }, [navigate]);
   async function handleSubmit(e) {
     e.preventDefault();
 

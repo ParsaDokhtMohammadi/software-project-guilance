@@ -10,7 +10,7 @@ const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:8000
 const AUTH_URL = `${API_BASE_URL}/auth`;
 const TASKS_URL = `${API_BASE_URL}/tasks`;
 
-function getStoredTokens() {
+export function getStoredTokens() {
   return {
     access: localStorage.getItem("accessToken"),
     refresh: localStorage.getItem("refreshToken"),

@@ -22,7 +22,7 @@ const PRIORITY_LABELS = {
   HIGH: "High",
 };
 
-function App() {
+function Temp() {
   const [tasks, setTasks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -749,7 +749,7 @@ function ConfirmDeleteModal({ task, onCancel, onConfirm }) {
   );
 }
 
-export default App;
+export default Temp;
 
 
 

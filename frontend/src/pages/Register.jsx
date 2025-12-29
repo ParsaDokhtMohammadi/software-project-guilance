@@ -1,8 +1,5 @@
 import React, { useState } from "react";
 
-/* =========================
-   API HELPERS (INLINE)
-   ========================= */
 
 const API_BASE = "http://localhost:8000/api";
 
@@ -22,13 +19,10 @@ async function registerUser(payload) {
     error.data = data;
     throw error;
   }
-
+  window.location.href = "/";
   return data;
 }
 
-/* =========================
-   REGISTER PAGE COMPONENT
-   ========================= */
 
 const Register = () => {
   const [email, setEmail] = useState("");

@@ -41,8 +41,8 @@ export default function TaskForm({ onSubmit, loading, error }) {
           </select>
         </div>
         <div className="form-field">
-          <label>Due date</label>
-          <input type="date" className="date-input" value={dueDate} onChange={e => setDueDate(e.target.value)} />
+          <label htmlFor="dueDate">Due date</label>
+          <input id="dueDate" type="date" className="date-input" value={dueDate} onChange={e => setDueDate(e.target.value)} />
         </div>
       </div>
       <div className="form-row">

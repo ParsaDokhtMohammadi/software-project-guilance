@@ -1,5 +1,3 @@
-import React from "react";
-
 export const STATUS_LABELS = { TODO: "To Do", DOING: "Doing", DONE: "Done" };
 export const PRIORITY_LABELS = { LOW: "Low", MEDIUM: "Medium", HIGH: "High" };
 

@@ -1,23 +1,21 @@
 import React, { useEffect, useState } from "react";
-import { loginUser, fetchCurrentUser , getStoredTokens } from "../api";
+import { loginUser, fetchCurrentUser, getStoredTokens } from "../api";
 import { useNavigate } from "react-router";
 
 const Login = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-
-
-   useEffect(() => {
+  useEffect(() => {
     const { access } = getStoredTokens();
     if (access) {
       navigate("/Dashboard", { replace: true });
     }
   }, [navigate]);
-
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -52,8 +50,9 @@ const Login = () => {
           <form className="task-form" onSubmit={handleSubmit}>
             <div className="form-row">
               <div className="form-field full-width">
-                <label>Email</label>
+                <label htmlFor="email">Email</label>
                 <input
+                  id="email"
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
@@ -64,8 +63,9 @@ const Login = () => {
 
             <div className="form-row">
               <div className="form-field full-width">
-                <label>Password</label>
+                <label htmlFor="password">Password</label>
                 <input
+                  id="password"
                   type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}

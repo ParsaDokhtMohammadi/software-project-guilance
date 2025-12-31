@@ -114,4 +114,30 @@ describe('EditTaskModal', () => {
     expect(screen.getByRole('button', { name: 'Saving...' })).toBeDisabled()
     expect(screen.getByRole('button', { name: 'Cancel' })).toBeDisabled()
   })
+it('calls onSave with updated values', async () => {
+  const onSave = vi.fn()
+
+  render(<EditTaskModal task={mockTask} onClose={vi.fn()} onSave={onSave} />)
+
+  fireEvent.change(screen.getByDisplayValue('Initial title'), { target: { value: 'Updated title' } })
+  fireEvent.change(screen.getByDisplayValue('Initial description'), { target: { value: 'Updated description' } })
+  fireEvent.change(screen.getByLabelText('Due date'), { target: { value: '2025-12-31' } })
+  fireEvent.change(screen.getByLabelText('Priority'), { target: { value: 'HIGH' } })
+  fireEvent.change(screen.getByLabelText('Status'), { target: { value: 'DOING' } }) 
+
+  fireEvent.click(screen.getByRole('button', { name: /save changes/i }))
+
+  await screen.findByRole('button', { name: /save changes/i }) // wait for async
+  expect(onSave).toHaveBeenCalledWith(
+    mockTask.id,
+    {
+      title: 'Updated title',
+      description: 'Updated description',
+      due_date: '2025-12-31',
+      priority: 'HIGH',
+      status: 'DOING'
+    }
+  )
+})
+
 })

@@ -11,8 +11,12 @@ export default function EditTaskModal({ task, onClose, onSave }) {
 
   async function handleSave(e) {
     e.preventDefault();
-    if (!title.trim()) { setError("Title is required."); return; }
-    setSaving(true); setError("");
+    if (!title.trim()) {
+      setError("Title is required.");
+      return;
+    }
+    setSaving(true);
+    setError("");
     await onSave(task.id, { title, priority, status, due_date: dueDate || null, description });
     setSaving(false);
   }
@@ -27,37 +31,40 @@ export default function EditTaskModal({ task, onClose, onSave }) {
         <form className="task-form" onSubmit={handleSave}>
           <div className="form-row">
             <div className="form-field">
-              <label>Task title</label>
-              <input value={title} onChange={e => setTitle(e.target.value)} autoFocus />
+              <label htmlFor="task-title">Initial title</label>
+              <input id="task-title" value={title} onChange={e => setTitle(e.target.value)} autoFocus />
             </div>
             <div className="form-field">
-              <label>Status</label>
-              <select className="select" value={status} onChange={e => setStatus(e.target.value)}>
+              <label htmlFor="task-status">Status</label>
+              <select id="task-status" className="select" value={status} onChange={e => setStatus(e.target.value)}>
                 <option value="TODO">To Do</option>
                 <option value="DOING">Doing</option>
                 <option value="DONE">Done</option>
               </select>
             </div>
             <div className="form-field">
-              <label>Priority</label>
-              <select className="select" value={priority} onChange={e => setPriority(e.target.value)}>
+              <label htmlFor="task-priority">Priority</label>
+              <select id="task-priority" className="select" value={priority} onChange={e => setPriority(e.target.value)}>
                 <option value="LOW">Low</option>
                 <option value="MEDIUM">Medium</option>
                 <option value="HIGH">High</option>
               </select>
             </div>
           </div>
+
           <div className="form-row">
             <div className="form-field">
-              <label>Due date</label>
-              <input type="date" className="date-input" value={dueDate} onChange={e => setDueDate(e.target.value)} />
+              <label htmlFor="task-due-date">Due date</label>
+              <input id="task-due-date" type="date" className="date-input" value={dueDate} onChange={e => setDueDate(e.target.value)} />
             </div>
             <div className="form-field full-width">
-              <label>Description</label>
-              <textarea rows="3" value={description} onChange={e => setDescription(e.target.value)} />
+              <label htmlFor="task-description">Initial description</label>
+              <textarea id="task-description" rows="3" value={description} onChange={e => setDescription(e.target.value)} />
             </div>
           </div>
+
           {error && <div className="error-box inline-error">{error}</div>}
+
           <div className="form-actions modal-actions">
             <button type="button" className="ghost-button" onClick={onClose} disabled={saving}>Cancel</button>
             <button type="submit" disabled={saving}>{saving ? "Saving..." : "Save changes"}</button>
